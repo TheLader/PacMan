@@ -1,2 +1,3 @@
-print("Hello World1")
-print("Nazar1")
+import Person as pers
+person = pers.Person("bichkov")
+person.SayMyName()
