@@ -18,7 +18,7 @@ pygame.display.set_caption("Pygame Template")
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
-Player = Classes.Player((10, 10), pygame.image.load("C:\\Users\\Богдан\\Pictures\\бугров.png"), (50, 50))
+Player = Classes.Player((10, 10), pygame.image.load("Images\\бугров.png"), (50, 50))
 # Game loop
 clock = pygame.time.Clock()
 is_running = True
