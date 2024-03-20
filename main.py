@@ -1,7 +1,7 @@
 
 import numpy as np
 import Classes
-
+import world
 
 import pygame
 import sys
@@ -38,8 +38,7 @@ while is_running:
     # Update
     # Draw
     screen.fill(WHITE)
-    for obj in objects:
-        screen.blit(obj.Image, obj.Position)
+    world.DrawingWorldWalls(screen)
     #screen.blit(wall.Image, wall.Position)
     #screen.blit(Player.Image, Player.Position)
     # Update display
