@@ -10,21 +10,13 @@ import sys
 pygame.init()
 objects = []
 # Set up display
-WIDTH, HEIGHT = 800, 600
+WIDTH, HEIGHT = world.worldWidth*50, world.worldLenght*50
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Pygame Template")
 
 # Colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-
-wall = Classes.Wall((4,0), "Images\\wall.jpg", (50,50))
-wall1 = Classes.Wall((5,0), "Images\\wall.jpg", (50,50))
-objects.append(wall)
-objects.append(wall1)
-#Player = Classes.Player((10, 10), pygame.image.load("Images\\бугров.png"), (50, 50))
-#Object = Classes.GameObject
-
 
 # Game loop
 clock = pygame.time.Clock()

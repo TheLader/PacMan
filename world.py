@@ -1,9 +1,26 @@
 import pygame
 import Classes
-wall = Classes.Wall((4,0), "Images\\wall.jpg", (50,50))
-world = [[1,1,1],[1,0,1],[1,1,1]]
+world = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+         [1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,1],
+         [1,0,1,1,0,1,0,1,1,1,1,1,1,0,1,0,1,1,0,1],
+         [1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1],
+         [1,0,1,0,1,1,0,1,1,0,0,1,1,0,1,1,0,1,0,1],
+         [1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,1],
+         [1,0,1,0,1,1,0,1,1,1,1,1,1,0,1,1,0,1,0,1],
+         [1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1],
+         [1,0,1,1,0,1,0,1,1,1,1,1,1,0,1,0,1,1,0,1],
+         [1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,1],
+         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]]
+worldLenght = len(world)
+worldWidth= len(world[0])
+# Список стін
+walls = []
+wallImagePath = "Images\\wall.jpg"
 def DrawingWorldWalls(screen):
     for y, row in enumerate(world):
         for x, cell in enumerate(row):
             if cell == 1:  # Якщо в масиві 1, малюємо стіну
-                screen.blit(wall.Image, (x * 50, y * 50))  # Виводимо стіну на екран у відповідному місці
+                wall_position = (x ,y )  # Позиція стіни на екрані
+                walls.append(Classes.Wall(wall_position, wallImagePath, (50, 50)))  # Додаємо стіну до списку
+    for wall in walls:
+        screen.blit(wall.Image, wall.Position)
