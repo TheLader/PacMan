@@ -13,7 +13,7 @@ objects = []
 WIDTH, HEIGHT = world.worldWidth*50, world.worldLenght*50
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Pygame Template")
-
+world.setWorld()
 # Colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
