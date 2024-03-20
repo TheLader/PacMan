@@ -15,7 +15,11 @@ class Entity(GameObject):
 
 
 class Player(Entity):
-    Points = None
+    def __init__(self, Position, Image, ColliderRect):
+        self.Position = Position
+        self.Image = Image
+        self.ColliderRect = ColliderRect
+
 
 
 class Enemy(Entity):
