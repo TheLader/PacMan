@@ -13,7 +13,8 @@ objects = []
 WIDTH, HEIGHT = world.worldWidth*50, world.worldLenght*50
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Pygame Template")
-
+world.setWorld()
+Player = Classes.Player((10,10), "Images\\PacMan.jpg",(50,50))
 # Colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -28,11 +29,12 @@ while is_running:
             is_running = False
 
     # Update
+    Player.Movement()
     # Draw
-    screen.fill(WHITE)
+    screen.fill(BLACK)
     world.DrawingWorldWalls(screen)
     #screen.blit(wall.Image, wall.Position)
-    #screen.blit(Player.Image, Player.Position)
+    screen.blit(Player.Image, Player.Position)
     # Update display
     pygame.display.flip()
 

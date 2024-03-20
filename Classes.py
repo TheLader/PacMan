@@ -1,4 +1,5 @@
 import pygame
+from pygame.locals import *
 class GameObject:
     Position = None
     Image = None
@@ -13,13 +14,26 @@ class GameObject:
 
 class Entity(GameObject):
     HealthPoint = None
-
+    def Movement(self):
+        HealthPoint = self.HealthPoint
 
 class Player(Entity):
     def __init__(self, Position, Image, ColliderRect):
+        self.Image = pygame.image.load(Image)
+        self.Image = pygame.transform.scale(self.Image, ColliderRect)
         self.Position = Position
-        self.Image = Image
-        self.ColliderRect = ColliderRect
+
+    def Movement(self):
+        keys = pygame.key.get_pressed()
+        if keys[K_w]:
+            self.Position = (self.Position[0], self.Position[1]-10)
+        if keys[K_a]:
+            self.Position = (self.Position[0]-10, self.Position[1])
+        if keys[K_s]:
+            self.Position = (self.Position[0], self.Position[1]+10)
+        if keys[K_d]:
+            self.Position = (self.Position[0]+10, self.Position[1])
+
 
 
 
