@@ -1,4 +1,4 @@
-import pygame
+
 import numpy as np
 import Classes
 
@@ -19,7 +19,7 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
 wall = Classes.Wall((4,0), "Images\\wall.jpg", (50,50))
-wall1 = Classes.Wall((3,0), "Images\\wall.jpg", (50,50))
+wall1 = Classes.Wall((5,0), "Images\\wall.jpg", (50,50))
 objects.append(wall)
 objects.append(wall1)
 #Player = Classes.Player((10, 10), pygame.image.load("Images\\бугров.png"), (50, 50))
