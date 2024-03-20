@@ -1,3 +1,4 @@
+import pygame
 class GameObject:
     Position = None
     Image = None
@@ -31,7 +32,13 @@ class WorldObject(GameObject):
 
 
 class Wall(WorldObject):
-    Color = None
+    def __init__(self, Coordinates, Image, ColliderRect):
+        # Завантаження та зміна розміру зображення
+        self.Image = pygame.image.load(Image)
+        self.Image = pygame.transform.scale(self.Image, ColliderRect)
+
+        # Обчислення позиції
+        self.Position = (Coordinates[0] * ColliderRect[0], Coordinates[1] * ColliderRect[1])
 
 
 class Food(WorldObject):
