@@ -1,4 +1,3 @@
-
 import numpy as np
 import Classes
 import world
@@ -11,12 +10,20 @@ import sys
 pygame.init()
 objects = []
 # Set up display
-WIDTH, HEIGHT = world.worldWidth*50, world.worldLenght*50
+WIDTH, HEIGHT = world.worldWidth*50, (world.worldLenght+1)*50
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Pygame Template")
 world.setWorld()
 world.setFood()
 Player = Classes.Player((1,1), "Images\\PacMan.jpg", (50,50))
+
+
+# Ініціалізація шрифту
+pygame.font.init()  # Ініціалізуємо модуль шрифтів Pygame
+font = pygame.font.SysFont(None, 36)  # Вибираємо стандартний шрифт
+
+# Ініціалізація UI
+ui = Classes.UI(font)
 
 # Colors
 WHITE = (255, 255, 255)
@@ -36,6 +43,7 @@ while is_running:
     for food in world.foods:
         if Player.ColliderRect.colliderect(food.ColliderRect):
             world.foods.remove(food)
+            ui.update_score(ui.score + 10)  # Оновлюємо рахунок на 10 очок
 
     #Player.Image = pygame.transform.rotate(Player.Image, 45)
     # Draw
@@ -45,6 +53,10 @@ while is_running:
 
     #screen.blit(wall.Image, wall.Position)
     screen.blit(Player.Image, Player.ColliderRect)
+
+    # Оновлення та відображення інтерфейсу
+    ui.draw(screen)
+
     # Update display
     pygame.display.flip()
 
@@ -54,4 +66,3 @@ while is_running:
 # Quit Pygame
 pygame.quit()
 sys.exit()
-
