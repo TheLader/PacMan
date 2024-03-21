@@ -25,3 +25,26 @@ def setWorld():
 def DrawingWorldWalls(screen):
     for wall in walls:
         screen.blit(wall.Image, wall.Position)
+
+foodMap = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+          [1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,1],
+          [1,0,1,1,0,1,0,1,1,1,1,1,1,0,1,0,1,1,0,1],
+          [1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1],
+          [1,0,1,0,1,1,0,1,1,2,2,1,1,0,1,1,0,1,0,1],
+          [1,0,0,0,0,0,0,1,2,2,2,2,1,0,0,0,0,0,0,1],
+          [1,0,1,0,1,1,0,1,1,1,1,1,1,0,1,1,0,1,0,1],
+          [1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1],
+          [1,0,1,1,0,1,0,1,1,1,1,1,1,0,1,0,1,1,0,1],
+          [1,0,0,0,0,1,0,0,0,2,2,0,0,0,1,0,0,0,0,1],
+          [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]]
+foodImagePath = "images\\food.png"
+foods = []
+def setFood():
+    for y, row in enumerate(foodMap):
+        for x, cell in enumerate(row):
+            if cell == 0:  # Якщо в масиві 0, малюємо їжу
+                food_position = (x ,y )  # Позиція їжі на екрані
+                foods.append(Classes.Food(food_position, foodImagePath, (50, 50)))  # Додаємо їжу до списку
+def DrawingWorldFood(screen):
+    for food in foods:
+        screen.blit(food.Image, food.ColliderRect)
