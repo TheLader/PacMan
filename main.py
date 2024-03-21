@@ -13,8 +13,6 @@ objects = []
 WIDTH, HEIGHT = world.worldWidth*50, world.worldLenght*50
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Pygame Template")
-world.setWorld()
-world.setFood()
 
 # Colors
 WHITE = (255, 255, 255)
@@ -31,9 +29,8 @@ while is_running:
 
     # Update
     # Draw
-    screen.fill(BLACK)
+    screen.fill(WHITE)
     world.DrawingWorldWalls(screen)
-    world.DrawingWorldFood(screen)
     #screen.blit(wall.Image, wall.Position)
     #screen.blit(Player.Image, Player.Position)
     # Update display
