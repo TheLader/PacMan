@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import *
-from PIL import Image
+
 class GameObject:
     Position = None
     OriginalImage = None
@@ -79,5 +79,14 @@ class Food(WorldObject):
         self.ColliderRect.x = self.Position[0]
         self.ColliderRect.y = self.Position[1]
 
-
-
+class MovementPoint(WorldObject):
+    def __init__(self, Coordinates, Image, ColliderRect, MovementDirection):
+        # Завантаження та зміна розміру зображення
+        self.Image = pygame.image.load(Image)
+        self.Image = pygame.transform.scale(self.Image, ColliderRect)
+        self.ColliderRect = self.Image.get_rect()
+        self.movementDirection = MovementDirection
+        # Обчислення позиції
+        self.Position = (Coordinates[0] * ColliderRect[0], Coordinates[1] * ColliderRect[1])
+        self.ColliderRect.x = self.Position[0]
+        self.ColliderRect.y = self.Position[1]

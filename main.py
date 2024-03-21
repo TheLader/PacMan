@@ -16,6 +16,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Pygame Template")
 world.setWorld()
 world.setFood()
+world.SetMotionPoints()
 Player = Classes.Player((1,1), "Images\\PacMan.jpg", (50,50))
 
 # Colors
@@ -36,12 +37,14 @@ while is_running:
     for food in world.foods:
         if Player.ColliderRect.colliderect(food.ColliderRect):
             world.foods.remove(food)
-
+    print(world.motionPoints[0].movementDirection)
     #Player.Image = pygame.transform.rotate(Player.Image, 45)
     # Draw
     screen.fill(BLACK)
     world.DrawingWorldWalls(screen)
-    world.DrawingWorldFood(screen)
+    world.DrawingMovementPoints(screen)
+    #world.DrawingWorldFood(screen)
+
 
     #screen.blit(wall.Image, wall.Position)
     screen.blit(Player.Image, Player.ColliderRect)
