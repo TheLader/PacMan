@@ -47,4 +47,4 @@ def setFood():
                 foods.append(Classes.Food(food_position, foodImagePath, (50, 50)))  # Додаємо їжу до списку
 def DrawingWorldFood(screen):
     for food in foods:
-        screen.blit(food.Image, food.Position)
+        screen.blit(food.Image, food.ColliderRect)

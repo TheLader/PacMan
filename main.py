@@ -3,6 +3,7 @@ import numpy as np
 import Classes
 import world
 
+
 import pygame
 import sys
 
@@ -13,6 +14,9 @@ objects = []
 WIDTH, HEIGHT = world.worldWidth*50, world.worldLenght*50
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Pygame Template")
+world.setWorld()
+world.setFood()
+Player = Classes.Player((1,1), "Images\\PacMan.jpg", (50,50))
 
 # Colors
 WHITE = (255, 255, 255)
@@ -28,11 +32,19 @@ while is_running:
             is_running = False
 
     # Update
+    Player.Movement()
+    for food in world.foods:
+        if Player.ColliderRect.colliderect(food.ColliderRect):
+            world.foods.remove(food)
+
+    #Player.Image = pygame.transform.rotate(Player.Image, 45)
     # Draw
-    screen.fill(WHITE)
+    screen.fill(BLACK)
     world.DrawingWorldWalls(screen)
+    world.DrawingWorldFood(screen)
+
     #screen.blit(wall.Image, wall.Position)
-    #screen.blit(Player.Image, Player.Position)
+    screen.blit(Player.Image, Player.ColliderRect)
     # Update display
     pygame.display.flip()
 
