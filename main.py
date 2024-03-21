@@ -16,6 +16,10 @@ pygame.display.set_caption("Pygame Template")
 world.setWorld()
 world.setFood()
 
+print("fdfdasfsfsfsdfsdf")
+
+
+
 # Colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
