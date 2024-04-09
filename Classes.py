@@ -78,6 +78,19 @@ class Food(WorldObject):
         self.Position = (Coordinates[0] * ColliderRect[0], Coordinates[1] * ColliderRect[1])
         self.ColliderRect.x = self.Position[0]
         self.ColliderRect.y = self.Position[1]
+class UI(GameObject):
+    def __init__(self, font, position=(30, 560), color=(255, 255, 255)):
+        self.Position = position
+        self.font = font
+        self.color = color
+        self.score = 0
+
+    def update_score(self, new_score):
+        self.score = new_score
+
+    def draw(self, screen):
+        score_text = self.font.render(f"Score: {self.score}", True, self.color)
+        screen.blit(score_text, self.Position)
 
 class MovementPoint(WorldObject):
     def __init__(self, Coordinates, Image, ColliderRect, MovementDirection):
@@ -90,3 +103,4 @@ class MovementPoint(WorldObject):
         self.Position = (Coordinates[0] * ColliderRect[0], Coordinates[1] * ColliderRect[1])
         self.ColliderRect.x = self.Position[0]
         self.ColliderRect.y = self.Position[1]
+

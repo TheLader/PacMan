@@ -70,8 +70,8 @@ def SetMotionPoints():
     for y, row in enumerate(motionMap):
         for x, cell in enumerate(row):
             if cell != 1 and cell != 0 and cell != 2:  # Якщо в масиві 0, малюємо їжу
-                Coordinates = (x ,y )  # Позиція їжі на екрані
-                motionPoints.append(Classes.MovementPoint(Coordinates, motionPointsimagePath, (50, 50),motionMap[x][y]))
+                Coordinates = (x, y)  # Позиція їжі на екрані
+                motionPoints.append(Classes.MovementPoint(Coordinates, motionPointsimagePath, (50, 50),motionMap[y][x]))
                 print(Coordinates)
 def DrawingMovementPoints(screen):
     for points in motionPoints:
