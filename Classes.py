@@ -68,9 +68,29 @@ class Player(Entity):
             sys.exit()
 
 
-
 class Enemy(Entity):
-    IQ = None
+    def __init__(self, Position, Image, ColliderRect, max_health=1):
+        self.OriginalImage = pygame.image.load(Image)
+        self.OriginalImage = pygame.transform.scale(self.OriginalImage, ColliderRect)
+        self.Position = (Position[0] * 50, Position[1] * 50)
+        self.Image = self.OriginalImage
+        self.ColliderRect = self.Image.get_rect()
+        self.ColliderRect.x = self.Position[0]
+        self.ColliderRect.y = self.Position[1]
+        self.angle = 0
+        self.MovementDirection = (1, 0)
+        self.NextMovementDirection = (0, 0)
+        self.max_health = max_health
+        self.health = max_health
+
+    def Movement(self):
+        # Implement enemy movement logic here
+        pass
+
+    # def lose_health(self, amount=1):
+    #     super().lose_health(amount)
+    #     # Additional logic specific to enemy health reduction
+    #     pass
 
 
 class WorldObject(GameObject):

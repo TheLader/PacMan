@@ -15,7 +15,11 @@ pygame.display.set_caption("Pygame Template")
 world.setWorld()
 world.setFood()
 world.SetMotionPoints()
-Player = Classes.Player((9, 9), "Images\\PacMan.jpg", (50, 50))
+Player = Classes.Player((7, 9), "Images\\PacMan.jpg", (50, 50))
+Enemy1 = Classes.Enemy((8, 5), "Images\\red_ghost.png", (50, 50))
+Enemy2 = Classes.Enemy((9, 5), "Images\\green_ghost.png", (50, 50))
+Enemy3 = Classes.Enemy((10, 5), "Images\\blue_ghost.png", (50, 50))
+Enemy4 = Classes.Enemy((11, 5), "Images\\purple_ghost.png", (50, 50))
 
 # Ініціалізація шрифту
 pygame.font.init()  # Ініціалізуємо модуль шрифтів Pygame
@@ -124,6 +128,10 @@ while is_running:
 
     # screen.blit(wall.Image, wall.Position)
     screen.blit(Player.Image, Player.ColliderRect)
+    screen.blit(Enemy1.Image, Enemy1.ColliderRect)
+    screen.blit(Enemy2.Image, Enemy2.ColliderRect)
+    screen.blit(Enemy3.Image, Enemy3.ColliderRect)
+    screen.blit(Enemy4.Image, Enemy4.ColliderRect)
 
     # Оновлення та відображення інтерфейсу
     ui.draw(screen)
