@@ -21,35 +21,43 @@ class Entity(GameObject):
 
 class Player(Entity):
     def __init__(self, Position, Image, ColliderRect, max_health=3):
-        # Базовий клас Player
-        super().__init__()
         self.OriginalImage = pygame.image.load(Image)
         self.OriginalImage = pygame.transform.scale(self.OriginalImage, ColliderRect)
         self.Position = (Position[0] * 50, Position[1] * 50)
         self.Image = self.OriginalImage
         self.ColliderRect = self.Image.get_rect()
         self.angle = 0
-        # Додаткові поля для життів гравця
+        self.MovementDirection = (1, 0)
+        self.ChangeAngel(self.MovementDirection)
+        self.NextMovementDirection = (0, 0)
         self.max_health = max_health
         self.health = max_health
 
+
+
     def Movement(self):
         keys = pygame.key.get_pressed()
-
+        PlayerSpeed = 3
         if keys[K_w]:
-            self.Position = (self.Position[0], self.Position[1] - 5)
-            self.Image = pygame.transform.rotate(self.OriginalImage, 270)
+            self.NextMovementDirection = (0, -1)
         if keys[K_a]:
-            self.Position = (self.Position[0] - 5, self.Position[1])
-            self.Image = pygame.transform.rotate(self.OriginalImage, 0)
+            self.NextMovementDirection = (-1, 0)
         if keys[K_s]:
-            self.Position = (self.Position[0], self.Position[1] + 5)
-            self.Image = pygame.transform.rotate(self.OriginalImage, 90)
+            self.NextMovementDirection = (0, 1)
         if keys[K_d]:
-            self.Position = (self.Position[0] + 5, self.Position[1])
-            self.Image = pygame.transform.rotate(self.OriginalImage, 180)
+            self.NextMovementDirection = (1, 0)
+        self.Position = (self.Position[0] + self.MovementDirection[0] * PlayerSpeed, self.Position[1] + self.MovementDirection[1] * PlayerSpeed)
         self.ColliderRect.x = self.Position[0]
         self.ColliderRect.y = self.Position[1]
+    def ChangeAngel(self, Direction):
+        if Direction == (0, -1):
+            self.Image = pygame.transform.rotate(self.OriginalImage, 270)
+        if Direction == (-1, 0):
+            self.Image = pygame.transform.rotate(self.OriginalImage, 0)
+        if Direction == (0, 1):
+            self.Image = pygame.transform.rotate(self.OriginalImage, 90)
+        if Direction == (1, 0):
+            self.Image = pygame.transform.rotate(self.OriginalImage, 180)
 
     def lose_health(self, amount=1):
         self.health -= amount
@@ -124,6 +132,7 @@ class MovementPoint(WorldObject):
         # Завантаження та зміна розміру зображення
         self.Image = pygame.image.load(Image)
         self.Image = pygame.transform.scale(self.Image, ColliderRect)
+        self.Image.set_alpha(0)
         self.ColliderRect = self.Image.get_rect()
         self.movementDirection = MovementDirection
         # Обчислення позиції
