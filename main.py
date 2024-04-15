@@ -42,6 +42,10 @@ is_running = True
 finish_image = pygame.image.load("images\\finish.jpg")
 finish_image = pygame.transform.scale(finish_image, (WIDTH, HEIGHT))  # Збільшення розміру до розмірів екрану
 
+# Завантаження зображення "finish"
+winner_image = pygame.image.load("Images/winner.jpg")
+winner_image = pygame.transform.scale(winner_image, (WIDTH, HEIGHT))  # Збільшення розміру до
+
 # Головний цикл гри
 while is_running:
     for event in pygame.event.get():
@@ -122,11 +126,12 @@ while is_running:
         is_running = False
 
 
-
-
-
-
-
+    if ui.score ==980:
+        screen.blit(winner_image, (0, 0))
+        pygame.display.flip()
+        # Затримка закриття гри на 10 секунд
+        pygame.time.delay(3000)
+        is_running = False
 
     for enemy in Enemys:
         if (enemy.ColliderRect.colliderect(Player.ColliderRect)):
