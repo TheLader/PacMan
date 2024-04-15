@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import *
-
+import sys
 class GameObject:
     Position = None
     OriginalImage = None
@@ -20,7 +20,7 @@ class Entity(GameObject):
         HealthPoint = self.HealthPoint
 
 class Player(Entity):
-    def __init__(self, Position, Image, ColliderRect):
+    def __init__(self, Position, Image, ColliderRect, max_health=3):
         self.OriginalImage = pygame.image.load(Image)
         self.OriginalImage = pygame.transform.scale(self.OriginalImage, ColliderRect)
         self.Position = (Position[0] * 50, Position[1] * 50)
@@ -30,6 +30,8 @@ class Player(Entity):
         self.MovementDirection = (1, 0)
         self.ChangeAngel(self.MovementDirection)
         self.NextMovementDirection = (0, 0)
+        self.max_health = max_health
+        self.health = max_health
 
 
 
@@ -57,6 +59,13 @@ class Player(Entity):
         if Direction == (1, 0):
             self.Image = pygame.transform.rotate(self.OriginalImage, 180)
 
+    def lose_health(self, amount=1):
+        self.health -= amount
+        if self.health <= 0:
+            # Додаткова логіка у випадку, якщо життя скінчилося
+            print("Game Over!")  # Можна замінити на більш складну логіку, наприклад, перезавантаження гри або інше
+            pygame.quit()
+            sys.exit()
 
 
 
@@ -89,18 +98,34 @@ class Food(WorldObject):
         self.ColliderRect.x = self.Position[0]
         self.ColliderRect.y = self.Position[1]
 class UI(GameObject):
-    def __init__(self, font, position=(30, 560), color=(255, 255, 255)):
+    def __init__(self, font, heart_image, position=(30, 560), color=(255, 255, 255)):
         self.Position = position
         self.font = font
         self.color = color
         self.score = 0
+        self.health = 3
+        self.heart_image = pygame.image.load(heart_image)
+        self.heart_image = pygame.transform.scale(self.heart_image, (30, 30))
 
     def update_score(self, new_score):
         self.score = new_score
 
+    def update_health(self, new_health):
+        self.health = new_health
+
     def draw(self, screen):
         score_text = self.font.render(f"Score: {self.score}", True, self.color)
         screen.blit(score_text, self.Position)
+
+        # Відображення сердечок
+        for i in range(self.health):
+            screen.blit(self.heart_image, (self.Position[0] + 810 + i * 40, self.Position[1]))
+
+    def decrease_health(self):
+        if self.health > 0:
+            self.health -= 1
+
+
 
 class MovementPoint(WorldObject):
     def __init__(self, Coordinates, Image, ColliderRect, MovementDirection):

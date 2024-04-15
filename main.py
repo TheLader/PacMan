@@ -22,7 +22,8 @@ pygame.font.init()  # Ініціалізуємо модуль шрифтів Pyg
 font = pygame.font.SysFont(None, 36)  # Вибираємо стандартний шрифт
 
 # Ініціалізація UI
-ui = Classes.UI(font)
+ui = Classes.UI(font, "images\\heart.jpg")
+
 
 # Colors
 WHITE = (255, 255, 255)
@@ -32,11 +33,19 @@ BLACK = (0, 0, 0)
 clock = pygame.time.Clock()
 is_running = True
 
+
+# Завантаження зображення "finish"
+finish_image = pygame.image.load("images\\finish.jpg")
+finish_image = pygame.transform.scale(finish_image, (WIDTH, HEIGHT))  # Збільшення розміру до розмірів екрану
+
+# Головний цикл гри
 while is_running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             is_running = False
-
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                ui.decrease_health()
 
     def is_player_center_in_point_center(player_rect, point_rect, tolerance=2):
         # Отримуємо координати центрів обох прямокутників
@@ -99,6 +108,14 @@ while is_running:
 
     Player.Movement()
     # Player.Image = pygame.transform.rotate(Player.Image, 45)
+    # Перевірка життів
+    if ui.health <= 0:
+        # Відображення зображення "finish" на екрані
+        screen.blit(finish_image, (0, 0))
+        pygame.display.flip()
+        # Затримка закриття гри на 10 секунд
+        pygame.time.delay(2000)
+        is_running = False
     # Draw
     screen.fill(BLACK)
     world.DrawingWorldWalls(screen)
