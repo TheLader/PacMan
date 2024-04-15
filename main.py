@@ -20,7 +20,7 @@ Enemy1 = Classes.Enemy((8, 5), "Images\\red_ghost.png", (50, 50))
 Enemy2 = Classes.Enemy((9, 5), "Images\\green_ghost.png", (50, 50))
 Enemy3 = Classes.Enemy((10, 5), "Images\\blue_ghost.png", (50, 50))
 Enemy4 = Classes.Enemy((11, 5), "Images\\purple_ghost.png", (50, 50))
-
+Enemys = [Enemy1, Enemy2, Enemy3, Enemy4]
 # Ініціалізація шрифту
 pygame.font.init()  # Ініціалізуємо модуль шрифтів Pygame
 font = pygame.font.SysFont(None, 36)  # Вибираємо стандартний шрифт
@@ -128,11 +128,11 @@ while is_running:
 
 
 
-    Enemy1.StupidMovement()
-    Enemy2.StupidMovement()
-    Enemy3.StupidMovement()
-    Enemy4.StupidMovement()
-
+    for enemy in Enemys:
+        if (enemy.ColliderRect.colliderect(Player.ColliderRect)):
+            ui.decrease_health()
+            Player = Classes.Player((7, 9), "Images\\PacMan.jpg", (50, 50))
+        enemy.StupidMovement()
 
     # Draw
     screen.fill(BLACK)
