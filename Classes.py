@@ -1,6 +1,14 @@
+import heapq
+import random
+
 import pygame
 from pygame.locals import *
 import sys
+
+import world
+
+
+
 class GameObject:
     Position = None
     OriginalImage = None
@@ -49,6 +57,16 @@ class Player(Entity):
         self.Position = (self.Position[0] + self.MovementDirection[0] * PlayerSpeed, self.Position[1] + self.MovementDirection[1] * PlayerSpeed)
         self.ColliderRect.x = self.Position[0]
         self.ColliderRect.y = self.Position[1]
+
+
+
+
+
+
+
+
+
+
     def ChangeAngel(self, Direction):
         if Direction == (0, -1):
             self.Image = pygame.transform.rotate(self.OriginalImage, 270)
@@ -82,16 +100,52 @@ class Enemy(Entity):
         self.NextMovementDirection = (0, 0)
         self.max_health = max_health
         self.health = max_health
+    def StupidMovement(self):
+        def is_enemy_center_in_point_center(enemy_rect, point_rect, tolerance=2):
+            # Отримуємо координати центрів обох прямокутників
+            enemy_center_x = enemy_rect.centerx
+            enemy_center_y = enemy_rect.centery
+            point_center_x = point_rect.centerx
+            point_center_y = point_rect.centery
 
-    def Movement(self):
-        # Implement enemy movement logic here
-        pass
+            # Перевіряємо, чи координати центрів збігаються
+            if abs(enemy_center_x - point_center_x) <= tolerance and abs(
+                    enemy_center_y - point_center_y) <= tolerance:
+                enemy_rect.center = point_rect.center
+                return True
+            else:
+                return False
 
-    # def lose_health(self, amount=1):
-    #     super().lose_health(amount)
-    #     # Additional logic specific to enemy health reduction
-    #     pass
-
+        def CanMove(Player, point):
+            if Player.MovementDirection == (1, 0) and point.movementDirection[1] != 1:
+                return False
+            elif Player.MovementDirection == (-1, 0) and point.movementDirection[3] != 1:
+                return False
+            elif Player.MovementDirection == (0, -1) and point.movementDirection[0] != 1:
+                return False
+            elif Player.MovementDirection == (0, 1) and point.movementDirection[2] != 1:
+                return False
+            else:
+                return True
+        for point in world.motionPoints:
+            # перевіряє чи знаходиться центр гравця в центрі точки руху
+            if is_enemy_center_in_point_center(self.ColliderRect, point.ColliderRect):
+                while True:
+                    RandomDirection = random.randint(1, 4)
+                    if(RandomDirection == 1):
+                        self.MovementDirection = (0, 1)
+                    if (RandomDirection == 2):
+                        self.MovementDirection = (1, 0)
+                    if (RandomDirection == 3):
+                        self.MovementDirection = (0, -1)
+                    if (RandomDirection == 4):
+                        self.MovementDirection = (-1, 0)
+                    if CanMove(self, point):
+                        break
+        self.Position = (self.Position[0] + self.MovementDirection[0] * 3,
+                         self.Position[1] + self.MovementDirection[1] * 3)
+        self.ColliderRect.x = self.Position[0]
+        self.ColliderRect.y = self.Position[1]
 
 class WorldObject(GameObject):
     Coordinates = None

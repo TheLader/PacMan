@@ -29,10 +29,6 @@ font = pygame.font.SysFont(None, 36)  # Вибираємо стандартни�
 ui = Classes.UI(font, "images\\heart.jpg")
 
 
-print("fdfdasfsfsfsdfsdf")
-
-
-
 # Colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -124,6 +120,20 @@ while is_running:
         # Затримка закриття гри на 10 секунд
         pygame.time.delay(2000)
         is_running = False
+
+
+
+
+
+
+
+
+    Enemy1.StupidMovement()
+    Enemy2.StupidMovement()
+    Enemy3.StupidMovement()
+    Enemy4.StupidMovement()
+
+
     # Draw
     screen.fill(BLACK)
     world.DrawingWorldWalls(screen)
