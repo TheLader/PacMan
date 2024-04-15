@@ -48,3 +48,32 @@ def setFood():
 def DrawingWorldFood(screen):
     for food in foods:
         screen.blit(food.Image, food.Position)
+
+
+
+
+motionMap =    [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+                [1,(0,1,1,0),0,0,(0,0,1,1),1,(0,1,1,0),0,0,0,0,0,0,(0,0,1,1),1,(0,1,1,0),0,0,(0,0,1,1),1],
+                [1,0,1,1,0,1,0,1,1,1,1,1,1,0,1,0,1,1,0,1],
+                [1,0,1,(0,1,1,0),(1,1,0,1),0,(1,1,1,1),0,0,(0,1,1,1),(0,1,1,1),0,0,(1,1,1,1),0,(1,1,0,1),(0,0,1,1),1,0,1],
+                [1,0,1,0,1,1,0,1,1,0,0,1,1,0,1,1,0,1,0,1],
+                [1,(1,1,1,0),0,(1,1,1,1),0,0,(1,0,1,1),1,(0,1,0,0),(1,1,0,1),(1,1,0,1),(0,0,0,1),1,(1,1,1,0),0,0,(1,1,1,1),0,(1,0,1,1),1],
+                [1,0,1,0,1,1,0,1,1,1,1,1,1,0,1,1,0,1,0,1],
+                [1,0,1,(1,1,0,0),(0,1,1,1),0,(1,1,1,1),0,0,0,0,0,0,(1,1,1,1),0,(0,1,1,1),(1,0,0,1),1,0,1],
+                [1,0,1,1,0,1,0,1,1,1,1,1,1,0,1,0,1,1,0,1],
+                [1,(1,1,0,0),0,0,(1,0,0,1),1,(1,1,0,0),0,0,0,0,0,0,(1,0,0,1),1,(1,1,0,0),0,0,(1,0,0,1),1],
+                [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]]
+motionPointsimagePath = "images\\бугров.png"
+motionPoints = []
+
+def SetMotionPoints():
+    for y, row in enumerate(motionMap):
+        for x, cell in enumerate(row):
+            if cell != 1 and cell != 0 and cell != 2:  # Якщо в масиві 0, малюємо їжу
+                Coordinates = (x, y)  # Позиція їжі на екрані
+                motionPoints.append(Classes.MovementPoint(Coordinates, motionPointsimagePath, (50, 50),motionMap[y][x]))
+def DrawingMovementPoints(screen):
+    for points in motionPoints:
+        screen.blit(points.Image, points.Position)
+
+        
