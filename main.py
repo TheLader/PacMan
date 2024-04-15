@@ -1,8 +1,5 @@
-import numpy as np
 import Classes
 import world
-
-
 import pygame
 import sys
 
@@ -15,6 +12,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Pygame Template")
 world.setWorld()
 world.setFood()
+world.SetMotionPoints()
 Player = Classes.Player((1,1), "Images\\PacMan.jpg", (50,50))
 
 
@@ -23,7 +21,8 @@ pygame.font.init()  # Ініціалізуємо модуль шрифтів Pyg
 font = pygame.font.SysFont(None, 36)  # Вибираємо стандартний шрифт
 
 # Ініціалізація UI
-ui = Classes.UI(font)
+ui = Classes.UI(font, "images\\heart.jpg")
+
 
 # Colors
 WHITE = (255, 255, 255)
@@ -33,36 +32,48 @@ BLACK = (0, 0, 0)
 clock = pygame.time.Clock()
 is_running = True
 
+
+# Завантаження зображення "finish"
+finish_image = pygame.image.load("images\\finish.jpg")
+finish_image = pygame.transform.scale(finish_image, (WIDTH, HEIGHT))  # Збільшення розміру до розмірів екрану
+
+# Головний цикл гри
 while is_running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             is_running = False
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                ui.decrease_health()
 
-    # Update
+    # Оновлення гри
     Player.Movement()
     for food in world.foods:
         if Player.ColliderRect.colliderect(food.ColliderRect):
             world.foods.remove(food)
-            ui.update_score(ui.score + 10)  # Оновлюємо рахунок на 10 очок
+            ui.update_score(ui.score + 10)
 
-    #Player.Image = pygame.transform.rotate(Player.Image, 45)
-    # Draw
+    # Перевірка життів
+    if ui.health <= 0:
+        # Відображення зображення "finish" на екрані
+        screen.blit(finish_image, (0, 0))
+        pygame.display.flip()
+        # Затримка закриття гри на 10 секунд
+        pygame.time.delay(2000)
+        is_running = False
+
+    # Відображення гри
     screen.fill(BLACK)
     world.DrawingWorldWalls(screen)
+    world.DrawingMovementPoints(screen)
     world.DrawingWorldFood(screen)
-
-    #screen.blit(wall.Image, wall.Position)
     screen.blit(Player.Image, Player.ColliderRect)
-
-    # Оновлення та відображення інтерфейсу
     ui.draw(screen)
-
-    # Update display
     pygame.display.flip()
 
-    # Cap the frame rate
+    # Обмеження кадрів на секунду
     clock.tick(60)
 
-# Quit Pygame
+# Закриття гри
 pygame.quit()
 sys.exit()
