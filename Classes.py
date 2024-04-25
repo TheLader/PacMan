@@ -79,11 +79,7 @@ class Player(Entity):
 
     def lose_health(self, amount=1):
         self.health -= amount
-        if self.health <= 0:
-            # Додаткова логіка у випадку, якщо життя скінчилося
-            print("Game Over!")  # Можна замінити на більш складну логіку, наприклад, перезавантаження гри або інше
-            pygame.quit()
-            sys.exit()
+
 
 
 class Enemy(Entity):
