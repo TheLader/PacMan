@@ -38,6 +38,7 @@ foodMap = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
           [1,0,0,0,0,1,0,0,0,2,2,0,0,0,1,0,0,0,0,1],
           [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]]
 foodImagePath = "images\\food.png"
+
 foods = []
 def setFood():
     for y, row in enumerate(foodMap):

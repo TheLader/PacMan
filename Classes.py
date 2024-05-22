@@ -45,7 +45,7 @@ class Player(Entity):
 
     def Movement(self):
         keys = pygame.key.get_pressed()
-        PlayerSpeed = 3
+
         if keys[K_w]:
             self.NextMovementDirection = (0, -1)
         if keys[K_a]:
@@ -54,12 +54,13 @@ class Player(Entity):
             self.NextMovementDirection = (0, 1)
         if keys[K_d]:
             self.NextMovementDirection = (1, 0)
-        self.Position = (self.Position[0] + self.MovementDirection[0] * PlayerSpeed, self.Position[1] + self.MovementDirection[1] * PlayerSpeed)
+        self.Move()
+    def Move(self):
+        PlayerSpeed = 3
+        self.Position = (self.Position[0] + self.MovementDirection[0] * PlayerSpeed,
+                         self.Position[1] + self.MovementDirection[1] * PlayerSpeed)
         self.ColliderRect.x = self.Position[0]
         self.ColliderRect.y = self.Position[1]
-
-
-
 
 
 
@@ -138,6 +139,8 @@ class Enemy(Entity):
                         self.MovementDirection = (-1, 0)
                     if CanMove(self, point):
                         break
+        self.Move()
+    def Move(self):
         self.Position = (self.Position[0] + self.MovementDirection[0] * 3,
                          self.Position[1] + self.MovementDirection[1] * 3)
         self.ColliderRect.x = self.Position[0]

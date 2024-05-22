@@ -28,7 +28,9 @@ font = pygame.font.SysFont(None, 36)  # Вибираємо стандартни�
 # Ініціалізація UI
 ui = Classes.UI(font, "images\\heart.jpg")
 
-
+arrow = pygame.image.load("images\\arrow.png")
+arrow = pygame.transform.scale(arrow, (100, 100))
+arrow.get_rect().update(10,10,10,10)
 # Colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -62,8 +64,13 @@ while is_running:
                     Enemy3 = Classes.Enemy((10, 5), "Images\\blue_ghost.png", (50, 50))
                     Enemy4 = Classes.Enemy((11, 5), "Images\\purple_ghost.png", (50, 50))
                     Enemys = [Enemy1, Enemy2, Enemy3, Enemy4]
+                    world.foods = []
+                    world.setFood()
+                    ui.score = 0
 
-        screen.fill(BLACK)
+        screen.fill(WHITE)
+        screen.blit(arrow, arrow.get_clip())
+        print(arrow.get_rect())
     else:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -173,7 +180,7 @@ while is_running:
 
         # Оновлення та відображення інтерфейсу
         ui.draw(screen)
-    
+
     # Update display
     pygame.display.flip()
 
