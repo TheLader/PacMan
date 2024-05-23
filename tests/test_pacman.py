@@ -1,13 +1,15 @@
 import sys
 import os
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 import pytest
 import pygame
-import Classes
-import world
+# Отримання абсолютного шляху до кореневої директорії проекту
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
+# Додавання кореневої директорії проекту до шляху пошуку модулів
+sys.path.insert(0, project_root)
+import Classes
+def get_image_path(relative_path):
+    return os.path.join(project_root, relative_path)
 # Ініціалізація Pygame для тестів
 pygame.init()
 pygame.display.set_mode((800, 600))
@@ -15,12 +17,12 @@ pygame.display.set_mode((800, 600))
 # Фікстура для ініціалізації гравця
 @pytest.fixture
 def player():
-    return Classes.Player((7, 9), "Images\\PacMan.jpg", (50, 50))
+    return Classes.Player((7, 9), get_image_path("Images/PacMan.jpg"), (50, 50))
 
 # Фікстура для ініціалізації ворога
 @pytest.fixture
 def enemy():
-    return Classes.Enemy((7, 9), "Images\\red_ghost.png", (50, 50))
+    return Classes.Enemy((7, 9), get_image_path("Images/red_ghost.png"), (50, 50))
 
 # Тест ініціалізації гравця
 def test_player_initialization(player):
@@ -38,25 +40,25 @@ def test_player_movement(player):
 
 # Тест зіткнення гравця з ворогом
 def test_player_enemy_collision():
-    player = Classes.Player((8, 9), "Images\\PacMan.jpg", (50, 50))
-    enemy = Classes.Enemy((7, 9), "Images\\red_ghost.png", (50, 50))
+    player = Classes.Player((8, 9), get_image_path("Images/PacMan.jpg"), (50, 50))
+    enemy = Classes.Enemy((7, 9), get_image_path("Images/red_ghost.png"), (50, 50))
     player.Move()
     enemy.Move()
     assert not enemy.ColliderRect.colliderect(player.ColliderRect)  # Перевіряємо, що немає зіткнення
-    player = Classes.Player((7, 9), "Images\\PacMan.jpg", (50, 50))
+    player = Classes.Player((7, 9), get_image_path("Images/PacMan.jpg"), (50, 50))
     player.Move()
     assert enemy.ColliderRect.colliderect(player.ColliderRect)
 
 # Тест збору їжі гравцем
 @pytest.fixture
 def food():
-    return Classes.Food((7, 9), "Images\\food.png", (50, 50))
+    return Classes.Food((7, 9), get_image_path("Images/food.png"), (50, 50))
 
 def test_player_food_collection(player, food):
     player.MovementDirection = (0, 0)
     player.Move()
     assert is_player_center_in_point_center(player.ColliderRect, food.ColliderRect)  # Перевіряємо, що гравець зіткнувся з їжею
-    player = Classes.Player((8, 9), "Images\\PacMan.jpg", (50, 50))
+    player = Classes.Player((8, 9), get_image_path("Images/PacMan.jpg"), (50, 50))
     player.MovementDirection = (0, 0)
     player.Move()
     assert not is_player_center_in_point_center(player.ColliderRect, food.ColliderRect)
