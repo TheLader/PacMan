@@ -26,7 +26,6 @@ pygame.font.init()  # Ініціалізуємо модуль шрифтів Pyg
 font = pygame.font.SysFont(None, 36)  # Вибираємо стандартний шрифт
 # Ініціалізація UI
 ui = Classes.UI(font, "images\\heart.jpg")
-
 arrow = pygame.image.load("images\\arrow.png")
 arrow = pygame.transform.scale(arrow, (100, 100))
 arrow.get_rect().update(10,10,10,10)
