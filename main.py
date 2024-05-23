@@ -1,4 +1,4 @@
-import numpy as np
+
 import Classes
 import world
 
@@ -24,7 +24,6 @@ Enemys = [Enemy1, Enemy2, Enemy3, Enemy4]
 # Ініціалізація шрифту
 pygame.font.init()  # Ініціалізуємо модуль шрифтів Pygame
 font = pygame.font.SysFont(None, 36)  # Вибираємо стандартний шрифт
-
 # Ініціалізація UI
 ui = Classes.UI(font, "images\\heart.jpg")
 
